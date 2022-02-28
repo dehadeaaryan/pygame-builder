@@ -11,7 +11,7 @@ setuptools.setup(
     description="A package to build games with ease.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://www.adehade.tech/",
+    url="https://github.com/dehadeaaryan/pygame-builder",
     project_urls={
         "Bug Tracker": "https://github.com/dehadeaaryan/pygame-builder/issues",
     },

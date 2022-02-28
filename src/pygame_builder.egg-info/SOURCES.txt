@@ -1,0 +1,8 @@
+LICENSE
+README.md
+pyproject.toml
+setup.py
+src/pygame_builder.egg-info/PKG-INFO
+src/pygame_builder.egg-info/SOURCES.txt
+src/pygame_builder.egg-info/dependency_links.txt
+src/pygame_builder.egg-info/top_level.txt

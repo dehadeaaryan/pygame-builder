@@ -2,6 +2,9 @@ LICENSE
 README.md
 pyproject.toml
 setup.py
+src/pygame_builder/__init__.py
+src/pygame_builder/element.py
+src/pygame_builder/main.py
 src/pygame_builder.egg-info/PKG-INFO
 src/pygame_builder.egg-info/SOURCES.txt
 src/pygame_builder.egg-info/dependency_links.txt

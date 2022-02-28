@@ -4,8 +4,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="pygame-builder",
-    version="0.0.1",
+    name="pygame_builder",
+    version="0.1.1",
     author="Aaryan Dehade",
     author_email="aaryandehade@adehade.tech",
     description="A package to build games with ease.",

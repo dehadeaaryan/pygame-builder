@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as file:
 
 setuptools.setup(
     name="pygame_builder",
-    version="0.1.2",
+    version="0.1.4",
     author="Aaryan Dehade",
     author_email="aaryandehade@adehade.tech",
     description="A package to build games with ease.",

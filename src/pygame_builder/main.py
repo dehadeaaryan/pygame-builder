@@ -6,8 +6,8 @@ import requests
 
 imgUrl = "https://raw.githubusercontent.com/dehadeaaryan/pygame-builder/main/pygame-builder.png"
 img = Image.open(requests.get(imgUrl, stream=True).raw)
-raw = img.tobytes("raw", 'RGBA')
-image = pygame.image.fromstring(raw, [480, 270], 'RGBA')
+raw = img.tobytes("raw", "RGB")
+image = pygame.image.fromstring(raw, [480, 270], "RGB")
 
 class Pygame:
     def __init__(self, backgroundImage = image, size = [480, 270], windowCaption = "Pygame", fps = 60, backgroundColour = (0, 0, 0), backgroundSound = None):
@@ -42,7 +42,8 @@ class Pygame:
         self.movementAmount = 1
         self.stayInBounds = None
 
-        self.background = pygame.image.load(self.backgroundImage)
+        # self.background = pygame.image.load(self.backgroundImage)
+        self.background = self.backgroundImage
         self.background = pygame.transform.scale(self.background, size)
         self.mixer.init()
         if backgroundSound:

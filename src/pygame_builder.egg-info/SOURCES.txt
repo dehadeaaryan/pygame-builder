@@ -4,7 +4,10 @@ pyproject.toml
 setup.py
 src/pygame_builder/__init__.py
 src/pygame_builder/element.py
+src/pygame_builder/image.py
 src/pygame_builder/main.py
+src/pygame_builder/music.py
+src/pygame_builder/sound.py
 src/pygame_builder.egg-info/PKG-INFO
 src/pygame_builder.egg-info/SOURCES.txt
 src/pygame_builder.egg-info/dependency_links.txt

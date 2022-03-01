@@ -1,16 +1,21 @@
 import os
 import sys, pygame
 
-from PIL import Image
+from PIL import Image as PILImage
 import requests
 
+from .element import Element
+from .image import Image
+from .sound import Sound
+from .music import Music
+
 imgUrl = "https://raw.githubusercontent.com/dehadeaaryan/pygame-builder/main/pygame-builder.png"
-img = Image.open(requests.get(imgUrl, stream=True).raw)
+img = PILImage.open(requests.get(imgUrl, stream=True).raw)
 raw = img.tobytes("raw", "RGB")
 image = pygame.image.fromstring(raw, [480, 270], "RGB")
 
 class Pygame:
-    def __init__(self, backgroundImage = image, size = [480, 270], windowCaption = "Pygame", fps = 60, backgroundColour = (0, 0, 0), backgroundSound = None):
+    def __init__(self, backgroundImage : Image = image, size : list = [480, 270], windowCaption = "Pygame", fps = 60, backgroundColour : tuple = (0, 0, 0), backgroundMusic : Music = None):
         
         os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
         
@@ -19,20 +24,23 @@ class Pygame:
         self.size = self.width, self.height = size
         self.fps = fps
         self.windowCaption = windowCaption
-        self.backgroundImage = backgroundImage
+        if backgroundImage != image:
+            self.backgroundImage = backgroundImage.getImage()
+        else:
+            self.backgroundImage = image
         self.backgroundColour = backgroundColour
 
         self.screen = pygame.display.set_mode(size)
         pygame.display.set_caption(windowCaption)
         self.clock = pygame.time.Clock()
         self.mixer = pygame.mixer
-        self.time = pygame.time
         self.music = self.mixer.music
+        self.time = pygame.time
 
         self.elements = []
         self.main = None
         self.keyboardEnabled = False
-        self.backgroundSound = None
+        self.backgroundMusic = None
 
         self.up = False
         self.down = False
@@ -42,13 +50,11 @@ class Pygame:
         self.movementAmount = 1
         self.stayInBounds = None
 
-        # self.background = pygame.image.load(self.backgroundImage)
         self.background = self.backgroundImage
         self.background = pygame.transform.scale(self.background, size)
         self.mixer.init()
-        if backgroundSound:
-            self.mixer.music.load(backgroundSound)
-            self.backgroundSound = self.mixer.music
+        if backgroundMusic:
+            self.backgroundMusic = backgroundMusic
 
     
     def __enter__(self):
@@ -57,7 +63,7 @@ class Pygame:
     def __exit__(self, exc_type, exc_value, traceback):
         self.run()
     
-    def __add__(self, element):
+    def __add__(self, element : Element):
         self.add(element)
         return self
 
@@ -76,13 +82,13 @@ class Pygame:
     def getScreenCenter(self):
         return self.width // 2, self.height // 2
     
-    def add(self, element):
+    def add(self, element : Element):
         self.elements.append(element)
     
-    def loop(self, loop):
+    def loop(self, loop : callable):
         self.main = loop
     
-    def addKeyboardMovement(self, element, amount, up, down, left, right, stayInBounds = True):
+    def addKeyboardMovement(self, element : Element, amount, up, down, left, right, stayInBounds = True):
         if not self.movingElement:
             self.movementAmount = amount
             self.keyboardEnabled = True
@@ -99,8 +105,8 @@ class Pygame:
             print("No loop defined. Set one with loop(YOUR_LOOP_HERE)")
             return
         
-        if self.backgroundSound:
-            self.backgroundSound.play(-1)
+        if self.backgroundMusic:
+            self.backgroundMusic.play()
 
         while True:
             for event in pygame.event.get():

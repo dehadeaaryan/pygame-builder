@@ -1,16 +1,19 @@
 import os
 import pygame
 
+from .image import Image
+
 class Element:
-    def __init__(self, image, screen : pygame.Surface, centerPosition = [0, 0], speed = [0, 0]):
+    def __init__(self, image : Image, parent, centerPosition = [0, 0], speed = [1, 1]):
         
         os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 
-        self.image = image
-        self.element = pygame.image.load(self.image)
-        self.rect = self.element.get_rect()
+        self.parent = parent
+
+        self.image = image.getImage()
+        self.rect = self.image.get_rect()
         self.speed = speed
-        self.screen = screen
+        self.screen = parent.getScreen()
         self.center = centerPosition
         self.initialBlit = True
         self.movementAmount = 1
@@ -118,9 +121,9 @@ class Element:
     def show(self):
         if self.initialBlit:
             self.rect.center = self.center
-            self.screen.blit(self.element, self.rect)
+            self.screen.blit(self.image, self.rect)
             self.initialBlit = False
-        self.screen.blit(self.element, self.rect)
+        self.screen.blit(self.image, self.rect)
     
 
     def bouncingAnimaton(self):

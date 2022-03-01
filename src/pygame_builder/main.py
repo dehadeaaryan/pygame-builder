@@ -1,8 +1,16 @@
 import os
 import sys, pygame
 
+from PIL import Image
+import requests
+
+imgUrl = "https://raw.githubusercontent.com/dehadeaaryan/pygame-builder/main/pygame-builder.png"
+img = Image.open(requests.get(imgUrl, stream=True).raw)
+raw = img.tobytes("raw", 'RGBA')
+image = pygame.image.fromstring(raw, [1920, 1080], 'RGBA')
+
 class Pygame:
-    def __init__(self, backgroundImage, size : tuple or list, windowCaption = "Pygame", fps = 60, backgroundColour = (0, 0, 0), backgroundSound = None):
+    def __init__(self, backgroundImage = img, size = [1920, 1080], windowCaption = "Pygame", fps = 60, backgroundColour = (0, 0, 0), backgroundSound = None):
         
         os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
         
